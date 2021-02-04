@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/Prueba_tecnica_Bancolombia/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/Prueba_tecnica_Bancolombia/static/js/main.54c61105.chunk.js",
+    "main.js.map": "/Prueba_tecnica_Bancolombia/static/js/main.54c61105.chunk.js.map",
+    "runtime-main.js": "/Prueba_tecnica_Bancolombia/static/js/runtime-main.991c8278.js",
+    "runtime-main.js.map": "/Prueba_tecnica_Bancolombia/static/js/runtime-main.991c8278.js.map",
+    "static/js/2.6387dd20.chunk.js": "/Prueba_tecnica_Bancolombia/static/js/2.6387dd20.chunk.js",
+    "static/js/2.6387dd20.chunk.js.map": "/Prueba_tecnica_Bancolombia/static/js/2.6387dd20.chunk.js.map",
+    "static/js/3.49300583.chunk.js": "/Prueba_tecnica_Bancolombia/static/js/3.49300583.chunk.js",
+    "static/js/3.49300583.chunk.js.map": "/Prueba_tecnica_Bancolombia/static/js/3.49300583.chunk.js.map",
+    "index.html": "/Prueba_tecnica_Bancolombia/index.html",
+    "static/css/main.8c8b27cf.chunk.css.map": "/Prueba_tecnica_Bancolombia/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.6387dd20.chunk.js.LICENSE.txt": "/Prueba_tecnica_Bancolombia/static/js/2.6387dd20.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/Prueba_tecnica_Bancolombia/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.991c8278.js",
+    "static/js/2.6387dd20.chunk.js",
+    "static/css/main.8c8b27cf.chunk.css",
+    "static/js/main.54c61105.chunk.js"
+  ]
+}
