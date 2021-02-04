@@ -5,7 +5,7 @@ function App() {
   return (
    <>
     <Header 
-      titulo = 'Weather App'
+      title = 'Weather App'
     />
    </>
   );
