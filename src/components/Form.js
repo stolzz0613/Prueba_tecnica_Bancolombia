@@ -1,13 +1,8 @@
 import {useState} from 'react';
 
-const Form = () => {
+const Form = ({search, setsearch, setrequest}) => {
 
-    //State for form
-    const [search, setsearch] = useState({
-        city: '',
-        country: ''
-    });
-    const {city, country} = search;
+    const {city} = search;
 
     //State for validations
     const [error, seterror] = useState(false);
@@ -23,11 +18,12 @@ const Form = () => {
     const handleSubmit = e => {
         e.preventDefault();
 
-        if(city.trim() === '' || country.trim() === ''){
+        if(city.trim() === ''){
             seterror(true);
             return;
         }
         seterror(false);
+        setrequest(true);
     }
 
     return (
@@ -49,25 +45,6 @@ const Form = () => {
                 />
                 <label htmlFor = 'city'>City: </label>
             </div>
-            <div className = 'input-field col s12'>
-                <select
-                    name ='country'
-                    id ='country'
-                    value = {country}
-                    onChange = {handleChange}
-                >
-                    <option value = ''>---Select a country---</option>
-                    <option value = "US">Estados Unidos</option>
-                    <option value = "MX">México</option>
-                    <option value = "AR">Argentina</option>
-                    <option value = "CO">Colombia</option>
-                    <option value = "CR">Costa Rica</option>
-                    <option value = "ES">España</option>
-                    <option value = "PE">Perú</option>
-                </select>
-                <label htmlFor='country'>City: </label>
-            </div>
-
             <div>
                 <input 
                     type = 'submit'
