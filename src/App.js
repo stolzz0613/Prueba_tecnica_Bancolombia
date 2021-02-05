@@ -9,28 +9,28 @@ import {getCitiesCircle} from './services/citiesCircle';
 function App() {
 
   //State for form
-  const [search, setsearch] = useState({
+  const [search, setsearch]= useState({
     city: '',
   });
-  const {city} = search;
+  const {city}= search;
 
   //State for api request
-  const [request, setrequest] = useState(false);
+  const [request, setrequest]= useState(false);
 
   //State for result
-  const [result, setresult] = useState({});
+  const [result, setresult]= useState({});
 
   //State for non result
-  const [nonresult, setnonresult] = useState(false);
+  const [nonresult, setnonresult]= useState(false);
 
   //State for message
-  const [message, setmessage] = useState('Ingrese una ciudad para iniciar la busqueda');
+  const [message, setmessage]= useState('Ingrese una ciudad para iniciar la busqueda');
 
   useEffect(() => {
-      const callApi = async () => {
+      const callApi= async () => {
         if(request){
-          let geolocationInfo = await getGeolocationInfo(city, setmessage);
-          let citiesInfo = await getCitiesCircle(geolocationInfo);
+          let geolocationInfo= await getGeolocationInfo(city, setmessage);
+          let citiesInfo= await getCitiesCircle(geolocationInfo);
           
           setresult(citiesInfo);
           setnonresult(true);
@@ -43,22 +43,22 @@ function App() {
   return (
    <>
     <Header 
-      title = 'Weather App'
+      title= 'Weather App'
     />
 
-    <div className = 'contenedor-form'>
-      <div className = 'container'>
-        <div className = 'row'>
+    <div className= 'contenedor-form'>
+      <div className= 'container'>
+        <div className= 'row'>
           <Form 
-            search = {search}
-            setsearch = {setsearch}
-            setrequest = {setrequest}
+            search= {search}
+            setsearch= {setsearch}
+            setrequest= {setrequest}
           />
         </div>
-        <div className = 'row'>
+        <div className= 'row'>
           {nonresult
             ? <CitiesList 
-                  cities = {result.list}
+                  cities= {result.list}
               />
             : <p>{message}</p>
           }

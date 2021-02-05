@@ -1,12 +1,10 @@
 import {useState, useEffect} from 'react';
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
 import {getForecast} from '../services/forecast';
 import ModalInfo from './ModalInfo';
 
 const CurrenWeather = ({city}) => {
-
-    const {name, weather, main, id} = city;
+    
+    const {name, weather, main, coord} = city;
     const urlIcon = `http://openweathermap.org/img/wn/${weather[0].icon}@4x.png`;
     
     //State for forecast ready
@@ -16,14 +14,12 @@ const CurrenWeather = ({city}) => {
 
     useEffect(() => {
         const callApiForecast = async () => {
-                let forecast = await getForecast(id);
+                let forecast = await getForecast(coord);
                 setcityForecast(forecast);
                 setforecastReady(true);
             };
           callApiForecast();
-    }, [city])
-
-
+    }, [city]);
 
     return (
         <div className = 'col s12'>
