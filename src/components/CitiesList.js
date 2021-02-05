@@ -6,6 +6,7 @@ const CitiesList = ({cities}) => {
             {cities.map(city => (
                 <CurrenWeather 
                     city = {city}
+                    key = {city.id}
                 />
             ))}
         </div>

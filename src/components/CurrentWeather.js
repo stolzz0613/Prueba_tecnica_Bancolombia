@@ -1,12 +1,30 @@
+import {useState, useEffect} from 'react';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import {getForecast} from '../services/forecast';
 import ModalInfo from './ModalInfo';
 
 const CurrenWeather = ({city}) => {
 
-    const {name, weather, main} = city;
+    const {name, weather, main, id} = city;
     const urlIcon = `http://openweathermap.org/img/wn/${weather[0].icon}@4x.png`;
-    console.log(city);
+    
+    //State for forecast ready
+    const [forecastReady, setforecastReady] = useState(false);
+    //State to store the forecast
+    const [cityForecast, setcityForecast] = useState({});
+
+    useEffect(() => {
+        const callApiForecast = async () => {
+                let forecast = await getForecast(id);
+                setcityForecast(forecast);
+                setforecastReady(true);
+            };
+          callApiForecast();
+    }, [city])
+
+
+
     return (
         <div className = 'col s12'>
             <div className='card-panel white'>
@@ -43,9 +61,14 @@ const CurrenWeather = ({city}) => {
                         </div>
                     </div>
                     <div className='center-align s12'>
-                        <ModalInfo 
-                            city = {city}
-                        />
+                        {forecastReady
+                            ?
+                                <ModalInfo
+                                    cityForecast ={cityForecast}
+                                    city = {city}
+                                 />
+                            : null
+                        }
                     </div>
                 </div>
             </div>

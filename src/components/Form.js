@@ -13,7 +13,7 @@ const Form = ({search, setsearch, setrequest}) => {
             ...search,
             [e.target.name] : e.target.value,
         })
-    }
+    };
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -24,7 +24,7 @@ const Form = ({search, setsearch, setrequest}) => {
         }
         seterror(false);
         setrequest(true);
-    }
+    };
 
     return (
         <form
