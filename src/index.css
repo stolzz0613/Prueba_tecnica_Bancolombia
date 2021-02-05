@@ -60,6 +60,9 @@ input[type=text]:not(.browser-default):focus:not([readonly]) + label {
   text-align: center;
   font-size: 1.4rem;
 }
+.city-name {
+  font-size: 2rem!important;
+}
 .temperatura {
   font-size: 4rem!important
 }
@@ -76,4 +79,8 @@ input[type=text]:not(.browser-default):focus:not([readonly]) + label {
   padding: 1rem!important;
   text-align: center!important;
   color: #FFF!important;
+}
+
+.icon {
+  width: 50px!important;
 }
