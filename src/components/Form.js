@@ -46,12 +46,10 @@ const Form = ({search, setsearch, setrequest, setspinner}) => {
                 />
                 <label htmlFor = 'city'>City: </label>
             </div>
-            <div>
-                <input 
+            <div className='center'>
+                <button 
                     type = 'submit'
-                    value = 'Check the weather'
-                    className ='waves-effect waves-light btn-large btn-block green accent-4'
-                />
+                >Check the wheater</button>
             </div>
         </form>
     );

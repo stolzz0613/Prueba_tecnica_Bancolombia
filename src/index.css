@@ -2,37 +2,56 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: #03a9f4;
+  background-color:#E0E0E0;
 }
-nav .brand-logo {
-  display: block;
-  text-align: center;
+
+nav {
+  background-color:#E0E0E0;
+  height: 6rem;
   position: relative;
 }
+
+nav .brand-logo {
+  position: absolute;
+   transform: translate(-50%,-50%);
+   top: 50%;
+   left: 50%;
+   font-family: 'Poppins',sans-serif;
+   font-size: 80px;
+   color: #C0C0C0;
+   text-shadow: 
+   -8px -8px 12px rgba(255,255,255,0.4),
+   8px 8px 12px rgba(0,0,0,0.08);
+   caret-color:#262626;
+   outline: none;
+}
 .input-field label {
-  color: white;
+  color: black;
 }
 
 .input-field input[type=text]:focus + label {
-  color: white;
+  color: black;
 } 
 
 .input-field input[type=text]:focus {
-  border-bottom: 1px solid white;
-  box-shadow: 0 1px 0 0 #000;
+  border-radius: 61px;
+  background: #e0e0e0;
+  box-shadow: inset 7px 7px 13px #5a5a5a,
+            inset -7px -7px 13px #ffffff;
 }
 
 input[type=text]:not(.browser-default) {
-  border-bottom: 1px solid white;
-  color: white;
+  border-bottom: 1px solid black;
+  color: black;
 }
 input[type=text]:not(.browser-default):focus:not([readonly]) {
-  border-bottom: 1px solid white;
-  -webkit-box-shadow: 0 1px 0 0 white;
-  box-shadow: 0 1px 0 0 white;
+  border-radius: 61px;
+  background: #e0e0e0;
+  box-shadow: inset 7px 7px 13px #5a5a5a,
+            inset -7px -7px 13px #ffffff;
 }
 input[type=text]:not(.browser-default):focus:not([readonly]) + label {
-  color: white;
+  color: black;
 }
 
 .contenedor-form {
@@ -45,23 +64,48 @@ input[type=text]:not(.browser-default):focus:not([readonly]) + label {
   text-align: center;
   text-emphasis: left;
 }
-.card-panel h2 {
-  font-size: 1.6rem;
-  text-align: center;
+
+.card-panel {
+  border-radius: 61px;
+  background: #e0e0e0;
+  box-shadow: inset 7px 7px 13px #5a5a5a,
+            inset -7px -7px 13px #ffffff;
 }
-.card-panel p {
+.card-panel h6 {
   text-align: center;
-  font-size: 1.4rem;
+  font-size: 1rem;
 }
 .city-name {
-  font-size: 2rem!important;
+  font-size: 1.5rem!important;
+  font-weight:bold;
+  margin-bottom: -10px;
 }
-.temperatura {
-  font-size: 4rem!important
+
+.weatherIcon {
+  border-radius: 50%;
+  background: linear-gradient(315deg, #f0f0f0, #cacaca);
+  box-shadow:  -9px -9px 12px #5a5a5a,
+             9px 9px 12px #ffffff;
+  width: 100px;
+  height: 100px;
+  display:inline-block;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-block {
-  display: block!important;
+  border-radius: 102px;
+  background: #5a5a5a;
+  box-shadow: inset -5px -5px 4px #b8b8b8,
+            inset 5px 5px 4px #ffffff;
+} 
+
+.btn-block:hover {
+  border-radius: 24px;
+  background: #e0e0e0;
+  box-shadow:  -5px -5px 0px #5a5a5a,
+             5px 5px 0px #ffffff;
+  cursor: pointer;
 }
 
 .error {
@@ -71,8 +115,13 @@ input[type=text]:not(.browser-default):focus:not([readonly]) + label {
 }
 
 .icon {
-  width: 30px!important;
+  width: 50px!important;
   margin-top: 30px;
+  border-radius: 10px;
+  padding: 10px;
+  background: linear-gradient(315deg, #ffffff, #e6e6e6);
+  box-shadow:  -5px -5px 12px #666666,
+             5px 5px 12px #ffffff;
 }
 
 .modalHeader {
@@ -85,6 +134,10 @@ input[type=text]:not(.browser-default):focus:not([readonly]) + label {
 
 .modalHeader .modalTitle{
   font-size: 35px;
+}
+
+.iconTooltip {
+  margin: -20px;
 }
 
 li::marker {
@@ -117,4 +170,23 @@ li::before {
 }
 strong{
   font-weight:bold;
+}
+
+button {
+  font-size: 1.3rem!important;
+  font-weight:bold;
+  margin-bottom: -10px;
+  border: none;
+  border-radius: 21px;
+  background: linear-gradient(315deg, #f0f0f0, #cacaca);
+  box-shadow:  -5px -5px 10px #5a5a5a,
+             5px 5px 10px #ffffff;
+  padding: 10px;
+}
+button:hover{
+  border-radius: 21px;
+background: linear-gradient(315deg, #cacaca, #f0f0f0);
+box-shadow:  -5px -5px 0px #c3c3c3,
+             5px 5px 0px #fdfdfd;
+  cursor: pointer;
 }

@@ -1,10 +1,11 @@
+import signature from '../assets/signature.png';
+
 const Header = ({title}) => {
     return ( 
-        <nav>
-            <div
-                className = 'nav-wrapper light-blue darken-2'
-            >
-                <a href='#!' className='brand-logo'>{title}</a>
+        <nav className="nav">
+            <a href='#!' className='brand-logo'>{title}</a>
+            <div class='right-align'>
+                <img alt='signature' src= {signature}/>
             </div>
         </nav>
     );
