@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import Header from './components/Header';
 import Form from './components/Form';
 import CitiesList from './components/CitiesList';
+import Spinner from "./components/Spinner/Spinner";
 import {getGeolocationInfo} from './services/geolocationInfo';
 import {getCitiesCircle} from './services/citiesCircle';
 
@@ -12,7 +13,9 @@ function App() {
   const [search, setsearch]= useState({
     city: '',
   });
-  const {city}= search;
+
+  //State for Spinner
+  const [spinner, setspinner] = useState(false);
 
   //State for initial request
   const [initialRequest, setinitialRequest] = useState(true);
@@ -24,33 +27,44 @@ function App() {
   const [result, setresult]= useState({});
 
   //State for non result
-  const [nonresult, setnonresult]= useState(false);
+  const [nonresult, setnonresult]= useState(true);
 
   //State for message
-  const [message, setmessage]= useState('Ingrese una ciudad para iniciar la busqueda');
+  const [message, setmessage]= useState('');
 
   useEffect(() => {
-      const callApi= async () => {
-        if(initialRequest){
-          window.navigator.geolocation.getCurrentPosition(success);
+    const callApi= async () => {
+      if(initialRequest){
+        setspinner(true);
+        window.navigator.geolocation.getCurrentPosition(success);
+        setinitialRequest(false);
+      }
+      if(request){
+        setspinner(true);
+        const {city}= search;
+        let geolocationInfo= await getGeolocationInfo(city, setmessage);
+        
+        if(geolocationInfo !== null){
+          let citiesInfo= await getCitiesCircle(geolocationInfo);
+          setrequest(false);
+          setspinner(false);
+          setresult(citiesInfo);
+          setnonresult(false);
+        } else {
+          setrequest(false);
+          setspinner(false);
+          setnonresult(true);
+          setmessage('No results found');
         }
-        if(request){
-          let geolocationInfo= await getGeolocationInfo(city, setmessage);
-          console.log(geolocationInfo);
-          if(geolocationInfo !== null){
-            let citiesInfo= await getCitiesCircle(geolocationInfo);
-            setresult(citiesInfo);
-            setnonresult(true);
-            setrequest(false);
-          } else {
-            setnonresult(false);
-            setrequest(false);
-            setmessage('No se encontraron resultados');
-          }
-        }
-      };
-      callApi();
-  }, [request]);
+      } else {
+        setTimeout(() => {
+          setspinner(false);
+          setmessage('Enter a city to start the search');
+        }, 5000); 
+      }
+    };
+    callApi();
+  }, [request, initialRequest, search]);
  
   const success= async(pos) => {
     var crd = pos.coords;
@@ -61,10 +75,9 @@ function App() {
       }
     }
     let citiesInfo= await getCitiesCircle(geolocationInfo);
+    setspinner(false);
     setresult(citiesInfo);
-    setnonresult(true);
-    setinitialRequest(false);
-    setrequest(false);
+    setnonresult(false);
   };
 
 
@@ -81,16 +94,22 @@ function App() {
             search= {search}
             setsearch= {setsearch}
             setrequest= {setrequest}
+            setspinner= {setspinner}
           />
         </div>
-        <div className= 'row'>
-          {nonresult
-            ? <CitiesList 
-                  cities= {result.list}
-              />
-            : <p>{message}</p>
-          }
-        </div>
+        {!spinner
+          ?
+            <div className= 'row'>
+              {!nonresult
+                ? <CitiesList 
+                      cities= {result.list}
+                  />
+                : <p className ='error red darken-4'>{message}</p>
+              }
+            </div>
+          :
+            <Spinner />
+        }
       </div>
     </div>
    </>

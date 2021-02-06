@@ -1,23 +1,44 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import {getForecast} from '../services/forecast';
 import ForecastChart from './ForecastChart';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import sunrise from '../assets/amanecer.png';
 import sunset from '../assets/luna.png';
 
-const ModalInfo= ({city, cityForecast})=> {
-    const {wind, main}= city;
+const ModalInfo= ({city})=> {
+    const {wind, main, coord}= city;
     
-    const convertTime= (time)=> {
-        var formattedTime= new Date(time * 1000);
-        var formattedTime= formattedTime.toLocaleTimeString();
-        return formattedTime;
-    }
-
     const [open, setOpen] = useState(false);
+    const [forecastChartReady, setforecastChartReady] = useState(false);
 
     const onOpenModal = () => setOpen(true);
     const onCloseModal = () => setOpen(false);
+
+    //State to store the forecast
+    const [cityForecast, setcityForecast] = useState({
+        current:{
+            sunrise: '',
+            sunset: ''
+        }
+    });
+
+    const convertTime= (time)=> {
+        var formattedTime= new Date(time * 1000);
+        formattedTime= formattedTime.toLocaleTimeString();
+        return formattedTime;
+    }
+
+    useEffect(() => {
+        const callApiForecast = async () => {
+            if(open){
+                const forecast = await getForecast(coord);
+                setcityForecast(forecast);
+                setforecastChartReady(true);
+            }
+        };
+        callApiForecast();
+    }, [open, coord]);
 
     return (
         <div>
@@ -27,11 +48,11 @@ const ModalInfo= ({city, cityForecast})=> {
                     <div className='row'>
                         <p className='modalTitle col s12 m8'>Additional Information</p>
                         <div className='center col s6 m2'>
-                            <img className='icon' src= {sunrise}/>
+                            <img className='icon' alt='sunrise' src= {sunrise}/>
                             <p>{convertTime(cityForecast.current.sunrise)}</p>
                         </div>
                         <div className='center col s6 m2'>
-                            <img className='icon' src= {sunset}/>
+                            <img className='icon' alt='sunset' src= {sunset}/>
                             <p>{convertTime(cityForecast.current.sunset)}</p>
                         </div>
                     </div>
@@ -51,9 +72,13 @@ const ModalInfo= ({city, cityForecast})=> {
                     </div>
                 </div>
                 <hr/>
-                <ForecastChart 
-                    forecastInfo = {cityForecast}
-                />
+                {forecastChartReady
+                    ?
+                        <ForecastChart
+                            forecastInfo = {cityForecast}
+                        />
+                    : null
+                }
             </Modal>
         </div>
     );

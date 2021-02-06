@@ -1,77 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Chart from 'react-apexcharts';
 
 const ForecastChart= ({forecastInfo}) => {
-  
+
   const minDate = forecastInfo.daily[0].dt;
   const maxDate = forecastInfo.daily[forecastInfo.daily.length - 1].dt;
-
-  const parseData = () => {
-    let averageTemp = [];
-    let maxTemp = [];
-    let minTemp = [];
-    let data = [];
-
-    forecastInfo.daily.forEach(element => {
-      let date = new Date(element.dt * 1000);
-      let sumTemps = (element.temp.eve + element.temp.day + element.temp.night + element.temp.morn) - (4 * 273.15);
-      
-      averageTemp.push(
-        {
-          x: date.toLocaleDateString('en-US').toString(),
-          y: (sumTemps / 4).toFixed(2),
-          description: element.weather[0].description,
-          urlIcon: `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`
-        },
-      );
-      maxTemp.push(
-        {
-          x: date.toLocaleDateString('en-US').toString(),
-          y: (element.temp.max - 273.15).toFixed(2),
-          description: element.weather[0].description,
-          urlIcon: `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`
-        },
-      );
-      minTemp.push(
-        {
-          x: date.toLocaleDateString('en-US').toString(),
-          y: (element.temp.min - 273.15).toFixed(2),
-          description: element.weather[0].description,
-          urlIcon: `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`
-        },
-      );
-    });
-
-    averageTemp = removeDuplicates(averageTemp).slice(0,5);
-    maxTemp = removeDuplicates(maxTemp).slice(0,5);
-    minTemp = removeDuplicates(minTemp).slice(0,5);
-
-    data.push(
-      {name: "Average Temp", data: averageTemp},
-      {name: "Max Temp", data: maxTemp},
-      {name: "Min Temp", data: minTemp}
-    );
-    
-    setchartOptions({...chartOptions, series: data});
-  };
-
-  function removeDuplicates(tempData) {
-    var result = [];
-    var lookupObject = {};
-
-    for (let i in tempData) {
-      if (lookupObject[tempData[i]['x']] === undefined) {
-        result.push(tempData[i]);
-      }
-      lookupObject[tempData[i]['x']] = tempData[i];
-    }
-    return result;
-  }
-
-  useEffect(() => {
-    parseData();
-  }, [forecastInfo])
-  
 
   const [chartOptions, setchartOptions]= useState({
     series: [],
@@ -127,6 +60,71 @@ const ForecastChart= ({forecastInfo}) => {
       }
     },
   });
+
+  const parseData = useCallback(() => {
+    let averageTemp = [];
+    let maxTemp = [];
+    let minTemp = [];
+    let data = [];
+
+    forecastInfo.daily.forEach(element => {
+      let date = new Date(element.dt * 1000);
+      let sumTemps = (element.temp.eve + element.temp.day + element.temp.night + element.temp.morn) - (4 * 273.15);
+
+      averageTemp.push(
+        {
+          x: date.toLocaleDateString('en-US').toString(),
+          y: (sumTemps / 4).toFixed(2),
+          description: element.weather[0].description,
+          urlIcon: `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`
+        },
+      );
+      maxTemp.push(
+        {
+          x: date.toLocaleDateString('en-US').toString(),
+          y: (element.temp.max - 273.15).toFixed(2),
+          description: element.weather[0].description,
+          urlIcon: `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`
+        },
+      );
+      minTemp.push(
+        {
+          x: date.toLocaleDateString('en-US').toString(),
+          y: (element.temp.min - 273.15).toFixed(2),
+          description: element.weather[0].description,
+          urlIcon: `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`
+        },
+      );
+    });
+
+    averageTemp = removeDuplicates(averageTemp).slice(0,5);
+    maxTemp = removeDuplicates(maxTemp).slice(0,5);
+    minTemp = removeDuplicates(minTemp).slice(0,5);
+
+    data.push(
+      {name: "Average Temp", data: averageTemp},
+      {name: "Max Temp", data: maxTemp},
+      {name: "Min Temp", data: minTemp}
+    );
+    setchartOptions({...chartOptions, series: data});
+  },[forecastInfo, chartOptions]);
+
+  function removeDuplicates(tempData) {
+    var result = [];
+    var lookupObject = {};
+
+    for (let i in tempData) {
+      if (lookupObject[tempData[i]['x']] === undefined) {
+        result.push(tempData[i]);
+      }
+      lookupObject[tempData[i]['x']] = tempData[i];
+    }
+    return result;
+  }
+
+  useEffect(() =>{
+    parseData();
+  }, [parseData]);
 
   return (
     <Chart

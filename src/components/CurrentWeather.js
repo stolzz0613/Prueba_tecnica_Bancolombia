@@ -1,25 +1,9 @@
-import {useState, useEffect} from 'react';
-import {getForecast} from '../services/forecast';
 import ModalInfo from './ModalInfo';
 
 const CurrenWeather = ({city}) => {
-    
-    const {name, weather, main, coord} = city;
-    const urlIcon = `http://openweathermap.org/img/wn/${weather[0].icon}@4x.png`;
-    
-    //State for forecast ready
-    const [forecastReady, setforecastReady] = useState(false);
-    //State to store the forecast
-    const [cityForecast, setcityForecast] = useState({});
 
-    useEffect(() => {
-        const callApiForecast = async () => {
-                let forecast = await getForecast(coord);
-                setcityForecast(forecast);
-                setforecastReady(true);
-            };
-          callApiForecast();
-    }, [city]);
+    const {name, weather, main} = city;
+    const urlIcon = `http://openweathermap.org/img/wn/${weather[0].icon}@4x.png`;
 
     return (
         <div className = 'col s12'>
@@ -57,14 +41,9 @@ const CurrenWeather = ({city}) => {
                         </div>
                     </div>
                     <div className='center-align s12'>
-                        {forecastReady
-                            ?
-                                <ModalInfo
-                                    cityForecast ={cityForecast}
-                                    city = {city}
-                                 />
-                            : null
-                        }
+                        <ModalInfo
+                            city = {city}
+                        />
                     </div>
                 </div>
             </div>

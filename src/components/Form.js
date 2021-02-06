@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-const Form = ({search, setsearch, setrequest}) => {
+const Form = ({search, setsearch, setrequest, setspinner}) => {
 
     const {city} = search;
 
@@ -23,6 +23,7 @@ const Form = ({search, setsearch, setrequest}) => {
             return;
         }
         seterror(false);
+        setspinner(true);
         setrequest(true);
     };
 
