@@ -10,9 +10,7 @@ import {getCitiesCircle} from './services/citiesCircle';
 function App() {
 
   //State for form
-  const [search, setsearch]= useState({
-    city: '',
-  });
+  const [search, setsearch]= useState({city: ''});
 
   //State for Spinner
   const [spinner, setspinner] = useState(false);
@@ -34,6 +32,10 @@ function App() {
 
   useEffect(() => {
     const callApi= async () => {
+      /*
+        If it is the first time that we are opening the page we will be able to see the weather information
+        for our location, if the location is disabled or there are no results, we can perform a manual search
+      */
       if(initialRequest){
         setspinner(true);
         window.navigator.geolocation.getCurrentPosition(success);
@@ -43,7 +45,7 @@ function App() {
         setspinner(true);
         const {city}= search;
         let geolocationInfo= await getGeolocationInfo(city, setmessage);
-        
+
         if(geolocationInfo !== null){
           let citiesInfo= await getCitiesCircle(geolocationInfo);
           setrequest(false);
@@ -65,7 +67,8 @@ function App() {
     };
     callApi();
   }, [request, initialRequest, search]);
- 
+
+  //Funtion to build the object with the coordinates of our current position
   const success= async(pos) => {
     var crd = pos.coords;
     let geolocationInfo = {

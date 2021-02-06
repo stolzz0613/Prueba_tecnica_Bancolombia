@@ -6,6 +6,7 @@ const ForecastChart= ({forecastInfo}) => {
   const minDate = forecastInfo.daily[0].dt;
   const maxDate = forecastInfo.daily[forecastInfo.daily.length - 1].dt;
 
+  //State for chart options
   const [chartOptions, setchartOptions]= useState({
     series: [],
     options: {
@@ -32,6 +33,7 @@ const ForecastChart= ({forecastInfo}) => {
         text: 'Forecast for the next 5 days',
         align: 'left'
       },
+      //Custom tooltip
       tooltip: {
         custom: function({series, seriesIndex, dataPointIndex, w}) {
           let maxTemp = series[1][dataPointIndex];
@@ -61,6 +63,7 @@ const ForecastChart= ({forecastInfo}) => {
     },
   });
 
+  //Function used to convert the information to be graphed
   const parseData = useCallback(() => {
     let averageTemp = [];
     let maxTemp = [];
@@ -106,9 +109,14 @@ const ForecastChart= ({forecastInfo}) => {
       {name: "Max Temp", data: maxTemp},
       {name: "Min Temp", data: minTemp}
     );
-    setchartOptions({...chartOptions, series: data});
-  },[forecastInfo, chartOptions]);
+    //Update chartOptions in order to show the new chart
+    setchartOptions(prevState => ({
+          ...prevState, series: data
+        })
+    );
+  },[forecastInfo]);
 
+  //Function to leave only one data per date
   function removeDuplicates(tempData) {
     var result = [];
     var lookupObject = {};
