@@ -14,6 +14,9 @@ function App() {
   });
   const {city}= search;
 
+  //State for initial request
+  const [initialRequest, setinitialRequest] = useState(true);
+
   //State for api request
   const [request, setrequest]= useState(false);
 
@@ -28,17 +31,42 @@ function App() {
 
   useEffect(() => {
       const callApi= async () => {
+        if(initialRequest){
+          window.navigator.geolocation.getCurrentPosition(success);
+        }
         if(request){
           let geolocationInfo= await getGeolocationInfo(city, setmessage);
-          let citiesInfo= await getCitiesCircle(geolocationInfo);
-          
-          setresult(citiesInfo);
-          setnonresult(true);
-          setrequest(false);
+          console.log(geolocationInfo);
+          if(geolocationInfo !== null){
+            let citiesInfo= await getCitiesCircle(geolocationInfo);
+            setresult(citiesInfo);
+            setnonresult(true);
+            setrequest(false);
+          } else {
+            setnonresult(false);
+            setrequest(false);
+            setmessage('No se encontraron resultados');
+          }
         }
       };
       callApi();
   }, [request]);
+ 
+  const success= async(pos) => {
+    var crd = pos.coords;
+    let geolocationInfo = {
+      geometry: {
+          lat: crd.latitude,
+          lng: crd.longitude
+      }
+    }
+    let citiesInfo= await getCitiesCircle(geolocationInfo);
+    setresult(citiesInfo);
+    setnonresult(true);
+    setinitialRequest(false);
+    setrequest(false);
+  };
+
 
   return (
    <>

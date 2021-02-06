@@ -84,6 +84,37 @@ input[type=text]:not(.browser-default):focus:not([readonly]) + label {
 }
 
 .modalHeader .modalTitle{
-  font-size: 40px;
+  font-size: 35px;
 }
 
+li::marker {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+ul {
+  font-size: 1rem;
+  list-style: none;
+  padding-left: 0;
+}
+li::before {
+  content: "•";
+  font-size: 3rem;
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: -1rem;
+  margin-top: -1rem;
+}
+
+.averageTemp::before {
+  color: #4ecdc4!important;
+}
+.maxTemp::before {
+  color:#c7f464!important;
+}
+.minTemp::before {
+  color: #81d4fa!important;
+}
+strong{
+  font-weight:bold;
+}
