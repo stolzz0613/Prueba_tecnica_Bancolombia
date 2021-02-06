@@ -12,5 +12,5 @@ const CitiesList = ({cities}) => {
         </div>
     );
 }
- 
+
 export default CitiesList;
