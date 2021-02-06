@@ -62,18 +62,18 @@ const ModalInfo= ({city})=> {
                             </div>
                         </div>
                     </div>
-                    <div className='row center'>
-                        <div className='icon-container col s12 m4'>
+                    <div className='row icon-container center'>
+                        <div className='col s12 m4'>
                             <img className='icon' alt='wind' src= {storm}/>
                             <h5 className= 'center'>Wind speed:</h5>
                             <h6 className= 'center'>{wind.speed} m/h</h6>
                         </div>
-                        <div className= 'icon-container col s12 m4'>
+                        <div className= 'col s12 m4'>
                             <img className='icon' alt='humidity' src= {humidity}/>
                             <h5 className= 'center'>Humidity:</h5>
                             <h6 className= 'center'>{(main.humidity)} %</h6>
                         </div>
-                        <div className='icon-container col s12 m4'>
+                        <div className='col s12 m4'>
                             <img className='icon' alt='pressure' src= {pressure}/>
                             <h5 className= 'center'>Pressure:</h5>
                             <h6 className= 'center'>{(main.pressure)} hPa</h6>

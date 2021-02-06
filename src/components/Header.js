@@ -4,8 +4,8 @@ const Header = ({title}) => {
     return ( 
         <nav className="nav">
             <a href='#!' className='brand-logo'>{title}</a>
-            <div class='right-align'>
-                <img alt='signature' src= {signature}/>
+            <div className='right-align'>
+                <img id='signature' alt='signature' src= {signature}/>
             </div>
         </nav>
     );
