@@ -34,17 +34,12 @@ function App() {
     gtmId: process.env.REACT_APP_GTM_ID
   };
 
-  TagManager.initialize(tagManagerArgs);
-
   const runDatalayer = (city, temp) => {
     window.dataLayer.push({
-      event: 'event',
-      eventProps: {
         event: 'ga_event',
         category: 'Aplicativo',
         action: city,
-        label: temp,
-      }
+        label: temp.toString(),
     });
   };
 
@@ -66,7 +61,9 @@ function App() {
 
         if(geolocationInfo !== null){
           let citiesInfo= await getCitiesCircle(geolocationInfo);
+          TagManager.initialize(tagManagerArgs);
           runDatalayer(city, citiesInfo.list[0].main.temp);
+
           setrequest(false);
           setspinner(false);
           setresult(citiesInfo);
