@@ -46,7 +46,7 @@ const ModalInfo= ({city})=> {
 
     return (
         <div>
-            <button onClick={onOpenModal}>Open modal</button>
+            <button onClick={onOpenModal}>More information</button>
             <Modal open={open} onClose={onCloseModal} center>
                 <div className='modalContainer'>
                     <div className= 'modalHeader'>
