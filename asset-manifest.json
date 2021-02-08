@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Prueba_tecnica_Bancolombia/static/css/main.48e5cd2f.chunk.css",
-    "main.js": "/Prueba_tecnica_Bancolombia/static/js/main.6cfcf531.chunk.js",
-    "main.js.map": "/Prueba_tecnica_Bancolombia/static/js/main.6cfcf531.chunk.js.map",
+    "main.js": "/Prueba_tecnica_Bancolombia/static/js/main.cb7986c0.chunk.js",
+    "main.js.map": "/Prueba_tecnica_Bancolombia/static/js/main.cb7986c0.chunk.js.map",
     "runtime-main.js": "/Prueba_tecnica_Bancolombia/static/js/runtime-main.5fa82a2c.js",
     "runtime-main.js.map": "/Prueba_tecnica_Bancolombia/static/js/runtime-main.5fa82a2c.js.map",
     "static/css/2.b6f7359a.chunk.css": "/Prueba_tecnica_Bancolombia/static/css/2.b6f7359a.chunk.css",
@@ -23,6 +23,6 @@
     "static/css/2.b6f7359a.chunk.css",
     "static/js/2.284aeabd.chunk.js",
     "static/css/main.48e5cd2f.chunk.css",
-    "static/js/main.6cfcf531.chunk.js"
+    "static/js/main.cb7986c0.chunk.js"
   ]
 }
