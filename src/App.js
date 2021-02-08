@@ -5,7 +5,7 @@ import CitiesList from './components/CitiesList';
 import Spinner from "./components/Spinner/Spinner";
 import {getGeolocationInfo} from './services/geolocationInfo';
 import {getCitiesCircle} from './services/citiesCircle';
-
+import TagManager from 'react-gtm-module';
 
 function App() {
 
@@ -30,6 +30,24 @@ function App() {
   //State for message
   const [message, setmessage]= useState('');
 
+  const tagManagerArgs = {
+    gtmId: process.env.REACT_APP_GTM_ID
+  };
+
+  TagManager.initialize(tagManagerArgs);
+
+  const runDatalayer = (city, temp) => {
+    window.dataLayer.push({
+      event: 'event',
+      eventProps: {
+        event: 'ga_event',
+        category: 'Aplicativo',
+        action: city,
+        label: temp,
+      }
+    });
+  };
+
   useEffect(() => {
     const callApi= async () => {
       /*
@@ -48,6 +66,7 @@ function App() {
 
         if(geolocationInfo !== null){
           let citiesInfo= await getCitiesCircle(geolocationInfo);
+          runDatalayer(city, citiesInfo.list[0].main.temp);
           setrequest(false);
           setspinner(false);
           setresult(citiesInfo);
@@ -62,7 +81,7 @@ function App() {
         setTimeout(() => {
           setspinner(false);
           setmessage('Enter a city to start the search');
-        }, 5000); 
+        }, 5000);
       }
     };
     callApi();
@@ -86,14 +105,14 @@ function App() {
 
   return (
    <>
-    <Header 
+    <Header
       title= 'Weather App'
     />
 
     <div className= 'contenedor-form'>
       <div className= 'container'>
         <div className= 'row'>
-          <Form 
+          <Form
             search= {search}
             setsearch= {setsearch}
             setrequest= {setrequest}
@@ -104,7 +123,7 @@ function App() {
           ?
             <div className= 'row'>
               {!nonresult
-                ? <CitiesList 
+                ? <CitiesList
                       cities= {result.list}
                   />
                 : <p className ='error red darken-4'>{message}</p>

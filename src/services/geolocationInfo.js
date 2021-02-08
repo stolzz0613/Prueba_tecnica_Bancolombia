@@ -1,9 +1,8 @@
 //Request to get the coordinates for a name
 export const getGeolocationInfo = async(city, setmessage) => {
 
-    const apiKeyOpenCage = '3f3b5b21e99b42da9f7e0ecd21c9981e';
-    const urlOpenCage = `https://api.opencagedata.com/geocode/v1/json?q=${city}&key=${apiKeyOpenCage}`;
-
+    const urlOpenCage = `https://api.opencagedata.com/geocode/v1/json?q=${city}&key=${process.env.REACT_APP_API_KEY_OPENCAGE}`;
+    
     const response = await fetch(urlOpenCage);
     const result = await response.json();
 
